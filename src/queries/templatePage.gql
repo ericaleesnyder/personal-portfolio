@@ -1,0 +1,17 @@
+query getPage($slug: String!) {
+  templatePage(filter: { slug: { eq: $slug } }) {
+    internalName
+    title
+    slug
+    _status
+  }
+}
+
+query getAllPages {
+  allTemplatePages {
+    internalName
+    title
+    slug
+    _status
+  }
+}

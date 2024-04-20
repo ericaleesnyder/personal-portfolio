@@ -1,0 +1,34 @@
+overwite: true
+schema:
+  - https://graphql.datocms.com:
+      headers:
+        Authorization: "Bearer ${NEXT_DATO_API_KEY}"
+documents: "./src/**/*.gql"
+generates:
+  src/lib/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node
+    config:
+      declarationKind: "interface"
+      inlineFragmentTypes: "combine"
+      strictScalars: true
+      scalars:
+        BooleanType: boolean
+        CustomData: Record<string, unknown>
+        Date: string
+        DateTime: string
+        FloatType: number
+        IntType: number
+        ItemId: string
+        JsonField: unknown
+        MetaTagAttributes: Record<string, string>
+        UploadId: string
+  src/lib/sdk.ts:
+    plugins:
+      - typescript-react-apollo:
+          documentVariableSuffix: "Query"
+          fragmentVariableSuffix: "Fragment"
+          nonOptionalTypename: true
+          documentMode: documentNode
